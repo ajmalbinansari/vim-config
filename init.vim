@@ -11,7 +11,8 @@ source ~/.config/nvim/plugins.vim
 " Remap leader key to ,
 let g:mapleader=','
 
-set relativenumber
+set number relativenumber
+set nu rnu
 
 try
 " === Denite setup ==="
@@ -374,7 +375,7 @@ augroup JsonToJsonc
     autocmd! FileType json set filetype=jsonc
 augroup END
 
-colorscheme nightfox
+colorscheme deus
 filetype plugin on
 
 

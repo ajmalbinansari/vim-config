@@ -34,6 +34,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-projectionist'        "|
   Plug 'noahfrederick/vim-composer'     "|
   Plug 'noahfrederick/vim-laravel'
+  Plug 'ajmwagar/vim-deus'
   " for laravel end
 
 " List ends here. Plugins become visible to Vim after this call.
