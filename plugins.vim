@@ -29,12 +29,15 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'github/copilot.vim', {'branch': 'release'}
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
   " for laravel start "
   Plug 'tpope/vim-dispatch'             "| Optional
   Plug 'tpope/vim-projectionist'        "|
   Plug 'noahfrederick/vim-composer'     "|
   Plug 'noahfrederick/vim-laravel'
   Plug 'ajmwagar/vim-deus'
+  Plug 'jwalton512/vim-blade'
   " for laravel end
 
 " List ends here. Plugins become visible to Vim after this call.

@@ -15,6 +15,11 @@ set number relativenumber
 set nu rnu
 
 try
+" === Telescope setup ==="
+nnoremap <leader>t <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap ; <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " === Denite setup ==="
 " Use ripgrep for searching current directory for files
 " By default, ripgrep will respect rules in .gitignore
@@ -100,7 +105,7 @@ let g:NERDTreeDirArrowCollapsible = '⬎'
 " Hide certain files and directories from NERDTree
 let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
 let g:NERDTreeWinPos = "left"
-let g:NERDTreeWinSize=35
+let g:NERDTreeWinSize=60
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -127,6 +132,7 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 let NERDTreeHighlightCursorline = 0
 
+
  " Customize NERDTree directory
   hi NERDTreeCWD guifg=#99c794
 
@@ -141,12 +147,12 @@ let NERDTreeHighlightCursorline = 0
 "   <leader>t - Browse list of files in current directory
 "   <leader>g - Search current directory for occurences of given term and close window if no results
 "   <leader>j - Search current directory for occurences of word under cursor
-nmap ; :Denite buffer<CR>
+"nmap ; :Denite buffer<CR>
 " nmap <leader>t :DeniteProjectDir file/rec<CR>
 nnoremap <leader>g :<C-u>Denite grep:. -no-empty<CR>
 nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
 nnoremap <leader>o :Denite<space>file_old<CR>
-nmap <leader>t :Denite -start-filter file/rec<CR>
+"nmap <leader>t :Denite -start-filter file/rec<CR>
 nnoremap \ :Denite grep<CR>
 
 
@@ -386,3 +392,10 @@ autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
 
 " auto formating
 nmap <leader>l :Format<CR>:w<CR>
+set viminfo='1000,h
+
+"-- FOLDING --  
+set foldmethod=syntax "syntax highlighting items specify folds  
+set foldcolumn=1 "defines 1 col at window left, to indicate folding  
+let javaScript_fold=1 "activate folding by JS syntax  
+set foldlevelstart=99 "start file with all folds opened
