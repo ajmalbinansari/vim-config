@@ -29,7 +29,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'github/copilot.vim', {'branch': 'release'}
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-tree/nvim-web-devicons'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
   " for laravel start "
   Plug 'tpope/vim-dispatch'             "| Optional

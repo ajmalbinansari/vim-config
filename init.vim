@@ -1,6 +1,7 @@
 
 scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
+luafile ~/.config/nvim/telescope-config.lua
 " ============================================================================ "
 " ===                           EDITING OPTIONS                            === "
 " ============================================================================ "
@@ -17,9 +18,12 @@ set nu rnu
 try
 " === Telescope setup ==="
 nnoremap <leader>t <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>j :execute 'Telescope find_files default_text=' . expand('<cword>')<cr>
+nnoremap <leader>g <cmd>Telescope live_grep<cr>
+nnoremap <leader>k :execute 'Telescope live_grep default_text=' . expand('<cword>')<cr>
 nnoremap ; <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 " === Denite setup ==="
 " Use ripgrep for searching current directory for files
 " By default, ripgrep will respect rules in .gitignore
@@ -149,8 +153,8 @@ let NERDTreeHighlightCursorline = 0
 "   <leader>j - Search current directory for occurences of word under cursor
 "nmap ; :Denite buffer<CR>
 " nmap <leader>t :DeniteProjectDir file/rec<CR>
-nnoremap <leader>g :<C-u>Denite grep:. -no-empty<CR>
-nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
+" nnoremap <leader>g :<C-u>Denite grep:. -no-empty<CR>
+" nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
 nnoremap <leader>o :Denite<space>file_old<CR>
 "nmap <leader>t :Denite -start-filter file/rec<CR>
 nnoremap \ :Denite grep<CR>
