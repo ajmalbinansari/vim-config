@@ -15,8 +15,17 @@ if !filereadable(plugpath)
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-  Plug 'Shougo/denite.nvim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'williamboman/mason.nvim', { 'do': ':MasonUpdate' }
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'MunifTanjim/prettier.nvim'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
+  Plug 'mattn/efm-langserver'
+
   Plug 'preservim/nerdtree'
   Plug 'ryanoasis/vim-devicons'
   Plug 'EdenEast/nightfox.nvim'
@@ -30,7 +39,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'maxmellon/vim-jsx-pretty'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
   " for laravel start "
