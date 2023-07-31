@@ -7,6 +7,7 @@ require("lsp-config")
 require("null-ls-config")
 -- require("prettier-config")
 require("completions-config")
+require("telescope-config")
 
 
 -- Remap leader key to ","
@@ -103,3 +104,6 @@ vim.opt.viminfo = "'1000,h"
 vim.opt.foldmethod = "syntax"
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevelstart = 99
+-- Set the working directory to the current file's directory
+-- vim.cmd("autocmd BufEnter * lcd %:p:h")
+
