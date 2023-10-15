@@ -8,9 +8,12 @@
     "json",
     "html",
     "svg",
-    "xml"
+    "xml",
+    "php"
   ],
   "eslint.format.enable": true,
   "eslint.autoFixOnSave": true,
-  "coc.preferences.formatOnSaveFiletypes": ["ts", "js", "tsx", "json"]
+  "[php]": {
+    "coc.preferences.formatOnSave": true
+  }
 }

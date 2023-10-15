@@ -289,6 +289,9 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+" Set phpcs-fixer as the formatter for PHP
+autocmd FileType php setlocal formatprg=phpcs-fixer\ --fix-to-stdout\ --stdin\ --stdin-path\=%
+
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -395,7 +398,30 @@ filetype plugin on
 autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
 
 " auto formating
-nmap <leader>l :Format<CR>:w<CR>
+" nmap <leader>l CocAction('format')<CR>:w<CR>
+" nnoremap <leader>l :call CocAction('format')<CR>:w<CR>
+
+function! CocOrPhpCsFixer()
+    " Save the buffer
+
+    if &filetype ==# 'php'
+        " If the current file is a PHP file, execute the php-cs-fixer command silently
+        write
+        silent! execute '!php-cs-fixer fix ' . shellescape(expand('%:p'))
+    else
+        " If the current file is not a PHP file, use the CocAction('format') command
+	call CocAction('format')
+        write
+    endif
+
+    " Reload the current buffer to update the changes
+    edit!
+endfunction
+
+nnoremap <leader>l :call CocOrPhpCsFixer()<CR>
+
+
+
 set viminfo='1000,h
 
 "-- FOLDING --  
