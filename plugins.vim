@@ -25,6 +25,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
   Plug 'mattn/efm-langserver'
+  Plug 'dgagn/diagflow.nvim'
+  Plug 'weilbith/nvim-code-action-menu'
 
   Plug 'preservim/nerdtree'
   Plug 'ryanoasis/vim-devicons'
@@ -40,7 +42,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'maxmellon/vim-jsx-pretty'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
+  Plug 'nvim-telescope/telescope-ui-select.nvim'
   " for laravel start "
   Plug 'tpope/vim-dispatch'             "| Optional
   Plug 'tpope/vim-projectionist'        "|

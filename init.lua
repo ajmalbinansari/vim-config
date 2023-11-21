@@ -5,6 +5,7 @@ vim.cmd("source ~/.config/nvim/plugins.vim")
 require("mason").setup()
 require("lsp-config")
 require("null-ls-config")
+require("diagflow-config")
 -- require("prettier-config")
 require("completions-config")
 require("telescope-config")
@@ -28,7 +29,7 @@ vim.api.nvim_set_keymap("n", "<C-n>", "<cmd>lua vim.lsp.diagnostic.goto_prev()<C
 vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ac", "<cmd>lua vim.lsp.buf.code_action()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.format()<CR>:w<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<leader>l", ":w<CR>", { silent = true })
 
 -- Telescope key mappings
 vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>Telescope find_files<CR>", { silent = true })
@@ -39,8 +40,12 @@ vim.api.nvim_set_keymap("n", "<leader>o", "<cmd>Telescope current_buffer<CR>", {
 vim.api.nvim_set_keymap("n", "<leader>k", ":execute 'Telescope live_grep default_text=' . expand('<cword>')<CR>",
 	{ silent = true })
 vim.api.nvim_set_keymap("n", ";", "<cmd>Telescope buffers<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>lua vim.diagnostic.setloclist()<CR>", { silent = true })
+-- Add a key mapping to format PHP code using php-cs-fixer and refresh buffer
+-- -- Add a key mapping to format PHP code using php-cs-fixer and refresh the buffer
+
+vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })
 
 -- NERDTree settings
 vim.g.NERDTreeShowHidden = 1
@@ -61,7 +66,7 @@ vim.g.NERDCommentEmptyLines = 1
 vim.g.NERDTrimTrailingWhitespace = 1
 vim.g.NERDToggleCheckAllLines = 1
 vim.g.NERDTreeHighlightCursorline = 0
-vim.cmd("hi NERDTreeCWD guifg=#99c794")
+-- vim.cmd("hi NERDTreeCWD guifg=#99c794")
 -- vim.g.NERDTreeNodeDelimiter = "\u00a0"
 
 -- Key mappings
@@ -94,16 +99,14 @@ augroup END
 -- Set color scheme
 vim.cmd("colorscheme deus")
 
--- Run PhpCsFixer on save for PHP files
-vim.cmd("autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()")
 
 -- Enable auto formatting
 vim.opt.viminfo = "'1000,h"
 
 -- Folding settings
-vim.opt.foldmethod = "syntax"
+-- vim.opt.foldmethod = "syntax"
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevelstart = 99
 -- Set the working directory to the current file's directory
 -- vim.cmd("autocmd BufEnter * lcd %:p:h")
-
+-- vim.opt.debug = "msg"
