@@ -30,27 +30,6 @@ vim.opt.smartcase = true -- Smart case handling
 vim.opt.viminfo = "'1000,h" -- Remember marks for 1000 files
 
 -- ============================================================================
--- NERDTree Configuration
--- ============================================================================
-
-vim.g.NERDTreeShowHidden = 1 -- Show hidden files
-vim.g.NERDTreeShowLineNumbers = 1 -- Show line numbers
-vim.opt_local.relativenumber = true -- Relative numbers in NERDTree
-vim.g.NERDTreeMinimalUI = 1 -- Minimal UI
-vim.g.NERDTreeDirArrowExpandable = '⬏' -- Expand arrow
-vim.g.NERDTreeDirArrowCollapsible = '⬎' -- Collapse arrow
-vim.g.NERDTreeIgnore = { -- Ignore patterns
-  '^\\.DS_Store$',
-  '^tags$',
-  '\\.git$[[dir]]',
-  '\\.idea$[[dir]]',
-  '\\.sass-cache$',
-}
-vim.g.NERDTreeWinPos = 'left' -- Window position
-vim.g.NERDTreeWinSize = 60 -- Window size
-vim.g.NERDTreeHighlightCursorline = 0 -- No cursor highlight
-
--- ============================================================================
 -- NERDCommenter Configuration
 -- ============================================================================
 
