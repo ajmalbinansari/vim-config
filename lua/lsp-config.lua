@@ -3,6 +3,8 @@ local nvim_lsp = require('lspconfig')
 
 local protocol = require('vim.lsp.protocol')
 
+-- Create autocommand group (must be defined before use)
+local augroup_format = vim.api.nvim_create_augroup("PHPformat", { clear = false })
 
 -- Set up completion using nvim_cmp with LSP source
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -106,7 +108,7 @@ nvim_lsp.lua_ls.setup {
 }
 --
 
-nvim_lsp.tsserver.setup {
+nvim_lsp.ts_ls.setup {
 	on_attach = function(client, bufnr)
 		on_attach(client, bufnr)
 		-- enable_format_on_save(client, bufnr)
@@ -125,14 +127,10 @@ nvim_lsp.flow.setup {
 
 -- Specify the path to the PHP-CS-Fixer executable
 
--- Create an autocommand group name
-local augroup_format = vim.api.nvim_create_augroup("PHPformat", { clear = false })
-
-
 -- Function to run PHP-CS-Fixer on "BufWritePre" event
 local enable_format_on_save_php = function(_, bufnr)
 	-- Clear existing autocommands in the group for the current buffer
-	local php_cs_fixer = "//usr//local//bin//php-cs-fixer"
+	local php_cs_fixer = "/usr/local/bin/php-cs-fixer"
 
 	vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
 
