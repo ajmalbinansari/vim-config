@@ -1,3 +1,6 @@
+-- Set Node.js path to use nvm Node 22 for Copilot
+vim.g.copilot_node_command = vim.fn.expand("~/.nvm/versions/node/v22.21.1/bin/node")
+
 -- Load plugins.vim
 vim.cmd("source ~/.config/nvim/plugins.vim")
 
