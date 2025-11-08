@@ -10,6 +10,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
     build = ":TSUpdate",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     config = function()
       require('nvim-treesitter.configs').setup {
         -- Install parsers for these languages
@@ -40,8 +43,70 @@ return {
         indent = {
           enable = true,
         },
+
+        -- Text objects - select code by structure
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true, -- Jump forward to next match
+            keymaps = {
+              -- Functions
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              -- Classes
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              -- Conditionals
+              ["ai"] = "@conditional.outer",
+              ["ii"] = "@conditional.inner",
+              -- Loops
+              ["al"] = "@loop.outer",
+              ["il"] = "@loop.inner",
+              -- Parameters/arguments
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true, -- Add to jumplist
+            goto_next_start = {
+              ["]f"] = "@function.outer",
+              ["]c"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]F"] = "@function.outer",
+              ["]C"] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[f"] = "@function.outer",
+              ["[c"] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[F"] = "@function.outer",
+              ["[C"] = "@class.outer",
+            },
+          },
+        },
+
+        -- Incremental selection - expand selection smartly
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn",    -- Start selection
+            node_incremental = "grn",  -- Expand to next node
+            scope_incremental = "grc", -- Expand to scope
+            node_decremental = "grm",  -- Shrink selection
+          },
+        },
       }
     end,
+  },
+
+  -- Tree-sitter text objects
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    lazy = true,
   },
 
   -- ============================================================================

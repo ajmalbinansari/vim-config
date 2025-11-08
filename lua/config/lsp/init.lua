@@ -1,37 +1,6 @@
 -- LSP Configuration Initialization
--- Main LSP setup, on_attach function, and custom icons
-
--- ============================================================================
--- Custom LSP Icons
--- ============================================================================
-
-vim.lsp.protocol.CompletionItemKind = {
-  '', -- Text
-  '', -- Method
-  '', -- Function
-  '', -- Constructor
-  '', -- Field
-  '', -- Variable
-  '', -- Class
-  'ﰮ', -- Interface
-  '', -- Module
-  '', -- Property
-  '', -- Unit
-  '', -- Value
-  '', -- Enum
-  '', -- Keyword
-  '﬌', -- Snippet
-  '', -- Color
-  '', -- File
-  '', -- Reference
-  '', -- Folder
-  '', -- EnumMember
-  '', -- Constant
-  '', -- Struct
-  '', -- Event
-  'ﬦ', -- Operator
-  '', -- TypeParameter
-}
+-- Main LSP setup and on_attach function
+-- Icons are handled by lspkind.nvim in lua/plugins/completion.lua
 
 -- ============================================================================
 -- LSP Attach Handler
