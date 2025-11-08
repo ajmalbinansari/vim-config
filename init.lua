@@ -1,22 +1,41 @@
--- Set Node.js path to use nvm Node 22 for Copilot
-vim.g.copilot_node_command = vim.fn.expand("~/.nvm/versions/node/v22.21.1/bin/node")
+-- Remap leader key to "," (MUST be set before lazy.nvim)
+vim.g.mapleader = ","
 
--- Load plugins.vim
-vim.cmd("source ~/.config/nvim/plugins.vim")
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Load mason and tsserver LSP
+-- Load plugins
+require("lazy").setup("plugins", {
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+})
+
+-- Load LSP and other configs
 require("mason").setup()
 require("lsp-config")
-require("null-ls-config")
-require("diagflow-config")
--- require("prettier-config")
-require("completions-config")
-require("telescope-config")
-require("treesitter-config")
-
-
--- Remap leader key to ","
-vim.g.mapleader = ","
 
 -- Set line numbers
 vim.opt.number = true
@@ -36,20 +55,12 @@ vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", 
 vim.api.nvim_set_keymap("n", "<leader>ac", "<cmd>lua vim.lsp.buf.code_action()<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>l", ":w<CR>", { silent = true })
 
--- Telescope key mappings
-vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>Telescope find_files<CR>", { silent = true })
+-- Telescope key mappings (note: some are handled by lazy.nvim, these are extras)
 vim.api.nvim_set_keymap("n", "<leader>j", ":execute 'Telescope find_files default_text=' . expand('<cword>')<CR>",
 	{ silent = true })
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>Telescope live_grep<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>o", "<cmd>Telescope current_buffer<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>k", ":execute 'Telescope live_grep default_text=' . expand('<cword>')<CR>",
 	{ silent = true })
-vim.api.nvim_set_keymap("n", ";", "<cmd>Telescope buffers<CR>", { silent = true })
--- vim.api.nvim_set_keymap("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>lua vim.diagnostic.setloclist()<CR>", { silent = true })
--- Add a key mapping to format PHP code using php-cs-fixer and refresh buffer
--- -- Add a key mapping to format PHP code using php-cs-fixer and refresh the buffer
-
 vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })
 
 -- NERDTree settings
@@ -66,23 +77,13 @@ vim.g.NERDSpaceDelims = 1
 vim.g.NERDCompactSexyComs = 1
 vim.g.NERDDefaultAlign = 'left'
 vim.g.NERDAltDelims_java = 1
--- vim.g.NERDCustomDelimiters = { 'c': { 'left': '/**', 'right': '*/' } }
 vim.g.NERDCommentEmptyLines = 1
 vim.g.NERDTrimTrailingWhitespace = 1
 vim.g.NERDToggleCheckAllLines = 1
 vim.g.NERDTreeHighlightCursorline = 0
--- vim.cmd("hi NERDTreeCWD guifg=#99c794")
--- vim.g.NERDTreeNodeDelimiter = "\u00a0"
-
--- Key mappings
-vim.api.nvim_set_keymap("n", "<leader>n", ":NERDTreeToggle<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>F", ":NERDTreeFind<CR>", { silent = true })
 
 -- Set termguicolors
 vim.opt.termguicolors = true
-
--- Configure nvim-colorizer.lua
-require 'colorizer'.setup()
 
 -- Set search options
 vim.opt.ignorecase = true
@@ -103,14 +104,9 @@ augroup END
 -- Set color scheme
 vim.cmd("colorscheme deus")
 
-
 -- Enable auto formatting
 vim.opt.viminfo = "'1000,h"
 
 -- Folding settings
--- vim.opt.foldmethod = "syntax"
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevelstart = 99
--- Set the working directory to the current file's directory
--- vim.cmd("autocmd BufEnter * lcd %:p:h")
--- vim.opt.debug = "msg"
