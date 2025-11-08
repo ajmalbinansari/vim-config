@@ -2,7 +2,7 @@
 
 This guide covers your complete Git workflow setup with LazyGit, Gitsigns, and Diffview.
 
-## 📦 Installed Plugins
+## Installed Plugins
 
 | Plugin | Purpose | Load Strategy |
 |--------|---------|---------------|
@@ -10,11 +10,11 @@ This guide covers your complete Git workflow setup with LazyGit, Gitsigns, and D
 | **gitsigns.nvim** | Visual diff indicators & hunk operations | Loaded on buffer open |
 | **diffview.nvim** | Advanced diff viewing & merge conflicts | Lazy loaded on command/keymap |
 
-## ⌨️ Complete Keymap Reference
+## Complete Keymap Reference
 
 > **Note:** Your leader key is `,` (comma)
 
-### 🎯 Primary Git Operations (`<leader>v` prefix)
+### Primary Git Operations (`<leader>v` prefix)
 
 | Keymap | Command | Description |
 |--------|---------|-------------|
@@ -29,7 +29,7 @@ This guide covers your complete Git workflow setup with LazyGit, Gitsigns, and D
 | `,vr` | DiffviewRefresh | Refresh diff view |
 | `,vt` | DiffviewToggleFiles | Toggle diff files panel |
 
-### 🔧 Hunk Operations (`<leader>h` prefix)
+### Hunk Operations (`<leader>h` prefix)
 
 | Keymap | Mode | Command | Description |
 |--------|------|---------|-------------|
@@ -45,7 +45,7 @@ This guide covers your complete Git workflow setup with LazyGit, Gitsigns, and D
 | `,hd` | Normal | Diff this | Open diff for current file |
 | `,hD` | Normal | Diff this ~ | Open diff against HEAD~ |
 
-### 🧭 Navigation
+### Navigation
 
 | Keymap | Command | Description |
 |--------|---------|-------------|
@@ -53,7 +53,7 @@ This guide covers your complete Git workflow setup with LazyGit, Gitsigns, and D
 | `[c` | Previous hunk | Jump to previous Git hunk |
 | `ih` | Text object | Select current hunk (use with operators) |
 
-### 📊 Visual Indicators
+### Visual Indicators
 
 #### Sign Column Icons
 - `│` - Added line
@@ -68,7 +68,7 @@ Shows at the end of the current line after 1 second:
 Author Name, 2025-01-08 - Commit message summary
 ```
 
-## 🚀 Common Workflows
+## Common Workflows
 
 ### 1. Quick Status Check & Commit
 ```
@@ -138,9 +138,9 @@ dx           → Delete conflict markers
 ,hR          → Reset entire buffer (unstage all)
 ```
 
-## 🎨 Visual Features Enabled
+## Visual Features Enabled
 
-### ✅ What You'll See
+### What You'll See
 - **Sign column indicators** for all Git changes
 - **Inline blame** showing author, date, and message
 - **Floating windows** for hunk previews
@@ -148,7 +148,7 @@ dx           → Delete conflict markers
 - **Syntax highlighting** in diffs
 - **3-way merge** layout for conflicts
 
-### ⚙️ Customization Options
+### Customization Options
 
 #### Toggle Features with Commands
 ```vim
@@ -163,7 +163,7 @@ Edit `lua/plugins/git.lua` line 95:
 delay = 1000,  -- Change to desired milliseconds
 ```
 
-## 📝 LazyGit Tips
+## LazyGit Tips
 
 Inside LazyGit (opened with `,vg`):
 - `Space` - Stage/unstage files
@@ -175,7 +175,7 @@ Inside LazyGit (opened with `,vg`):
 - `/` - Search
 - `q` - Quit
 
-## 🔍 Diffview Tips
+## Diffview Tips
 
 ### Diff View Keybindings
 - `<Tab>` / `<S-Tab>` - Navigate files
@@ -195,7 +195,7 @@ Inside LazyGit (opened with `,vg`):
 - `j/k` - Navigate
 - `zR/zM` - Expand/collapse all folds
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Inline Blame Not Showing
 1. Ensure you're in a Git repository
@@ -214,20 +214,20 @@ Inside LazyGit (opened with `,vg`):
 - Install a Nerd Font (e.g., `brew tap homebrew/cask-fonts && brew install --cask font-jetbrains-mono-nerd-font`)
 - Set terminal to use the Nerd Font
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [LazyGit Documentation](https://github.com/jesseduffield/lazygit)
 - [Gitsigns Documentation](https://github.com/lewis6991/gitsigns.nvim)
 - [Diffview Documentation](https://github.com/sindrets/diffview.nvim)
 
-## ⚡ Performance Notes
+## Performance Notes
 
 - **LazyGit**: Lazy loaded (only when you use it)
 - **Gitsigns**: Loaded on buffer open (minimal overhead)
 - **Diffview**: Lazy loaded (only when you use it)
 - **Max file length**: Gitsigns disabled for files >40,000 lines
 
-## 🎯 Quick Reference Card
+## Quick Reference Card
 
 ```
 Essential Commands:
