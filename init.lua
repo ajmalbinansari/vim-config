@@ -1,9 +1,6 @@
 -- Remap leader key to "," (MUST be set before lazy.nvim)
 vim.g.mapleader = ","
 
--- Set Node.js path to use nvm Node 22 for Copilot
-vim.g.copilot_node_command = vim.fn.expand("~/.nvm/versions/node/v22.21.1/bin/node")
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
