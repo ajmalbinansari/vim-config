@@ -13,21 +13,21 @@ telescope.setup{
     mappings = {
       i = {
         ["<C-n>"] = actions.cycle_history_next,
-	["<C-p>"] = actions.cycle_history_prev,
+        ["<C-p>"] = actions.cycle_history_prev,
       },
     },
-  },
-  sorting_strategy = "ascending",
-  file_sorter = require'telescope.sorters'.get_fuzzy_file,
-  generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
-  winblend = 0,
-  layout_strategy = 'horizontal',
-  layout_config = {
-    preview_width = 0.65,
-    width = 0.75,
-    height = 0.75,
-    prompt_position = 'bottom',
-    preview_cutoff = 120,
+    sorting_strategy = "ascending",
+    file_sorter = require'telescope.sorters'.get_fuzzy_file,
+    generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
+    winblend = 0,
+    layout_strategy = 'horizontal',
+    layout_config = {
+      preview_width = 0.65,
+      width = 0.75,
+      height = 0.75,
+      prompt_position = 'bottom',
+      preview_cutoff = 120,
+    },
   },
   extensions = {
     fzf = {
