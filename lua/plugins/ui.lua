@@ -25,7 +25,7 @@ return {
             enabled = true,
           },
           gitsigns = true,
-          nvimtree = true,
+          neo_tree = true,
         },
       })
     end,
