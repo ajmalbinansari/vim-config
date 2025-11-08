@@ -1,6 +1,9 @@
 local telescope = require('telescope')
 local actions = require('telescope.actions')
 
+-- Ensure telescope history directory exists
+vim.fn.mkdir(vim.fn.expand('~/.local/share/nvim/databases'), 'p')
+
 telescope.setup{
   defaults = {
     history = {
@@ -32,14 +35,18 @@ telescope.setup{
       override_generic_sorter = false, -- override the generic sorter
       override_file_sorter = true,     -- override the file sorter
       case_mode = 'smart_case',        -- or "ignore_case" or "respect_case"
-      -- the default case_mode is "smart_case"
     },
     frecency = {
       show_scores = false,
       ignore_patterns = {"*.git/*", "*/tmp/*"},
       workspaces = {
-        ["conf"] = "/home/johndoe/.config",
-        ["data"] = "/home/johndoe/.local/share",
+        ["conf"] = vim.fn.expand("~/.config"),
+        ["data"] = vim.fn.expand("~/.local/share"),
+      }
+    },
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
       }
     }
   },
@@ -48,16 +55,18 @@ telescope.setup{
       sort_lastused = true,
       mappings = {
         i = {
-          ["<c-d>"] = require("telescope.actions").delete_buffer,
+          ["<c-d>"] = actions.delete_buffer,
         },
         n = {
-          ["<c-d>"] = require("telescope.actions").delete_buffer,
+          ["<c-d>"] = actions.delete_buffer,
         }
       }
     },
     find_files = {
       -- ... other options for the find_files picker
     },
-    -- ... other pickers
   },
 }
+
+-- Load ui-select extension
+require("telescope").load_extension("ui-select")
