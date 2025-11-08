@@ -71,6 +71,14 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
+-- Git (vim-fugitive) key mappings - using 'v' prefix for version control
+vim.api.nvim_set_keymap('n', '<leader>vs', ':Git<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>vc', ':Git commit<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>vp', ':Git push<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>vl', ':Git pull<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>vb', ':Git blame<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>vd', ':Gdiffsplit<CR>', { noremap = true, silent = true })
+
 -- NERDTree settings
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeShowLineNumbers = 1
