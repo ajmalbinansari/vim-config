@@ -1,3 +1,6 @@
+-- Set Node.js path to use nvm Node 22 for Copilot
+vim.g.copilot_node_command = vim.fn.expand("~/.nvm/versions/node/v22.21.1/bin/node")
+
 -- Load plugins.vim
 vim.cmd("source ~/.config/nvim/plugins.vim")
 
@@ -9,6 +12,7 @@ require("diagflow-config")
 -- require("prettier-config")
 require("completions-config")
 require("telescope-config")
+require("treesitter-config")
 
 
 -- Remap leader key to ","
@@ -84,10 +88,9 @@ require 'colorizer'.setup()
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Automatic closing of NERDTree
+-- Automatic closing of NERDTree when it's the last window
 vim.cmd([[
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd VimEnter * NERDTree | wincmd p
 ]])
 
 -- Consider all json files as jsonc

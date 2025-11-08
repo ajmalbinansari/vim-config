@@ -1,40 +1,36 @@
-local nvim_lsp = require('lspconfig')
--- require('completions-config')
-
-local protocol = require('vim.lsp.protocol')
-
 -- Create autocommand group (must be defined before use)
 local augroup_format = vim.api.nvim_create_augroup("PHPformat", { clear = false })
 
 -- Set up completion using nvim_cmp with LSP source
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-protocol.CompletionItemKind = {
-	'', -- Text
-	'', -- Method
-	'', -- Function
-	'', -- Constructor
-	'', -- Field
-	'', -- Variable
-	'', -- Class
+-- Custom completion item kind icons
+vim.lsp.protocol.CompletionItemKind = {
+	'', -- Text
+	'', -- Method
+	'', -- Function
+	'', -- Constructor
+	'', -- Field
+	'', -- Variable
+	'', -- Class
 	'ﰮ', -- Interface
-	'', -- Module
-	'', -- Property
-	'', -- Unit
-	'', -- Value
-	'', -- Enum
-	'', -- Keyword
+	'', -- Module
+	'', -- Property
+	'', -- Unit
+	'', -- Value
+	'', -- Enum
+	'', -- Keyword
 	'﬌', -- Snippet
-	'', -- Color
-	'', -- File
-	'', -- Reference
-	'', -- Folder
-	'', -- EnumMember
-	'', -- Constant
-	'', -- Struct
-	'', -- Event
+	'', -- Color
+	'', -- File
+	'', -- Reference
+	'', -- Folder
+	'', -- EnumMember
+	'', -- Constant
+	'', -- Struct
+	'', -- Event
 	'ﬦ', -- Operator
-	'', -- TypeParameter
+	'', -- TypeParameter
 }
 
 local enable_format_on_save = function(_, bufnr)
@@ -85,11 +81,11 @@ local on_attach = function(client, bufnr)
 	})
 end
 
-nvim_lsp.lua_ls.setup {
-	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
-		enable_format_on_save(client, bufnr)
-	end,
+-- Configure lua_ls using new vim.lsp.config API
+vim.lsp.config('lua_ls', {
+	cmd = { 'lua-language-server' },
+	filetypes = { 'lua' },
+	root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -97,7 +93,6 @@ nvim_lsp.lua_ls.setup {
 				-- Get the language server to recognize the `vim` global
 				globals = { 'vim' },
 			},
-
 			workspace = {
 				-- Make the server aware of Neovim runtime files
 				library = vim.api.nvim_get_runtime_file("", true),
@@ -105,57 +100,65 @@ nvim_lsp.lua_ls.setup {
 			},
 		},
 	},
-}
---
+})
 
-nvim_lsp.ts_ls.setup {
-	on_attach = function(client, bufnr)
-		on_attach(client, bufnr)
-		-- enable_format_on_save(client, bufnr)
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.name == 'lua_ls' then
+			on_attach(client, args.buf)
+			enable_format_on_save(client, args.buf)
+		end
 	end,
-	filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "jsx" },
+})
+
+-- Configure ts_ls using new vim.lsp.config API
+vim.lsp.config('ts_ls', {
 	cmd = { "typescript-language-server", "--stdio" },
-	capabilities = capabilities
-}
-
-nvim_lsp.flow.setup {
-	on_attach = on_attach,
-	capabilities = capabilities
-}
-
-
-
--- Specify the path to the PHP-CS-Fixer executable
-
--- Function to run PHP-CS-Fixer on "BufWritePre" event
-local enable_format_on_save_php = function(_, bufnr)
-	-- Clear existing autocommands in the group for the current buffer
-	local php_cs_fixer = "/usr/local/bin/php-cs-fixer"
-
-	vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
-
-	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-		group = augroup_format,
-		pattern = { "*.php" },
-		-- command = "echo 'Entering a C or C++ file'",
-		-- command = string.format('%s fix %s', php_cs_fixer, vim.fn.expand('%')),
-		-- command = "w !php-cs-fixer fix --allow-risky yes -"
-		command = "FormatAndSaveBuffer"
-
-	})
-end
-
--- Example configuration for your PHPactor LSP
-require('lspconfig').phpactor.setup {
+	filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "jsx" },
+	root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
 	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-		-- Attach PHPactor to the buffer
-		-- You can add other configuration options as needed
-		on_attach(client, bufnr)
-		capabilities = capabilities
+})
 
-		-- Enable auto-formatting with PHP-CS-Fixer on save
-		-- enabe_format_on_save_php(client, bufnr)
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.name == 'ts_ls' then
+			on_attach(client, args.buf)
+		end
 	end,
-	-- Other settings...
-}
+})
+
+-- Configure flow using new vim.lsp.config API
+vim.lsp.config('flow', {
+	cmd = { 'flow', 'lsp' },
+	filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx' },
+	root_markers = { '.flowconfig' },
+	capabilities = capabilities,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.name == 'flow' then
+			on_attach(client, args.buf)
+		end
+	end,
+})
+
+-- Configure phpactor using new vim.lsp.config API
+vim.lsp.config('phpactor', {
+	cmd = { 'phpactor', 'language-server' },
+	filetypes = { 'php' },
+	root_markers = { 'composer.json', '.git' },
+	capabilities = capabilities,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.name == 'phpactor' then
+			on_attach(client, args.buf)
+		end
+	end,
+})
