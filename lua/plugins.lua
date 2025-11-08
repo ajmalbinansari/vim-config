@@ -12,6 +12,21 @@ return {
     lazy = false,
     priority = 900,
     build = ":MasonUpdate",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
+    priority = 850,
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "lua_ls", "ts_ls", "phpactor" },
+        automatic_installation = true,
+      })
+    end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -57,18 +72,13 @@ return {
     build = "make install_jsregexp",
   },
 
-  -- Null-ls & Prettier
+  -- Conform.nvim (formatting)
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "stevearc/conform.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("null-ls-config")
+      require("conform-config")
     end,
-  },
-  {
-    "MunifTanjim/prettier.nvim",
-    event = { "BufReadPre", "BufNewFile" },
   },
   {
     "nvim-lua/plenary.nvim",
@@ -89,6 +99,29 @@ return {
     "weilbith/nvim-code-action-menu",
     cmd = "CodeActionMenu",
   },
+	 {
+      "greggh/claude-code.nvim",
+      cmd = "ClaudeCode",
+      keys = {
+        { "<C-,>", "<cmd>ClaudeCode<CR>", desc = "Toggle Claude Code", silent = true },
+      },
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+      },
+      config = function()
+        require("claude-code").setup({
+          split_ratio = 0.3,
+          position = "botright",
+          enter_insert = true,
+          file_refresh = {
+            enable = true,
+            show_notifications = false,
+          },
+          hide_numbers = false,
+          hide_signcolumn = false,
+        })
+      end,
+    },
 
   -- Telescope (lazy load on command/keymap)
   {
@@ -162,7 +195,11 @@ return {
     "github/copilot.vim",
     event = "InsertEnter",
     init = function()
-      vim.g.copilot_node_command = vim.fn.expand("~/.nvm/versions/node/v22.21.1/bin/node")
+      -- Use latest Node v22.x from nvm
+      local node_path = vim.fn.glob("~/.nvm/versions/node/v22*/bin/node")
+      if node_path ~= "" then
+        vim.g.copilot_node_command = vim.fn.expand(node_path)
+      end
     end,
   },
 

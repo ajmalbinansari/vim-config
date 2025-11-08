@@ -107,7 +107,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client and client.name == 'lua_ls' then
 			on_attach(client, args.buf)
-			enable_format_on_save(client, args.buf)
+			-- Format on save handled by conform.nvim
 		end
 	end,
 })
@@ -162,3 +162,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end
 	end,
 })
+
+-- Enable LSP servers (required for vim.lsp.config to work)
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('flow')
+vim.lsp.enable('phpactor')

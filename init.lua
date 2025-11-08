@@ -1,67 +1,75 @@
 -- Remap leader key to "," (MUST be set before lazy.nvim)
-vim.g.mapleader = ","
+vim.g.mapleader = ','
 
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable',
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins
-require("lazy").setup("plugins", {
+require('lazy').setup('plugins', {
   performance = {
     rtp = {
       disabled_plugins = {
-        "gzip",
-        "matchit",
-        "matchparen",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
+        'gzip',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
       },
     },
   },
 })
 
--- Load LSP and other configs
-require("mason").setup()
-require("lsp-config")
+-- Load LSP config
+require('lsp-config')
 
 -- Set line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- LSP key mappings
-vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { silent = true })
--- Use [d and ]d for diagnostics (standard vim convention, avoids conflict with Telescope)
-vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ac", "<cmd>lua vim.lsp.buf.code_action()<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>l", ":w<CR>", { silent = true })
+-- Additional LSP key mappings (basic navigation is in lsp-config.lua)
+vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { silent = true })
+-- Use [d and ]d for diagnostics (standard vim convention)
+vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ac', '<cmd>lua vim.lsp.buf.code_action()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>l', ':w<CR>', { silent = true })
 
 -- Telescope key mappings (note: some are handled by lazy.nvim, these are extras)
-vim.api.nvim_set_keymap("n", "<leader>j", ":execute 'Telescope find_files default_text=' . expand('<cword>')<CR>",
-	{ silent = true })
-vim.api.nvim_set_keymap("n", "<leader>k", ":execute 'Telescope live_grep default_text=' . expand('<cword>')<CR>",
-	{ silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>lua vim.diagnostic.setloclist()<CR>", { silent = true })
-vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>j',
+  ":execute 'Telescope find_files default_text=' . expand('<cword>')<CR>",
+  { silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>k',
+  ":execute 'Telescope live_grep default_text=' . expand('<cword>')<CR>",
+  { silent = true }
+)
+vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>lua vim.diagnostic.setloclist()<CR>', { silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>f',
+  '<cmd>lua require("conform").format({ lsp_fallback = true })<CR>',
+  { noremap = true, silent = true }
+)
 
 -- NERDTree settings
 vim.g.NERDTreeShowHidden = 1
@@ -71,7 +79,7 @@ vim.g.NERDTreeMinimalUI = 1
 vim.g.NERDTreeDirArrowExpandable = '⬏'
 vim.g.NERDTreeDirArrowCollapsible = '⬎'
 vim.g.NERDTreeIgnore = { '^\\.DS_Store$', '^tags$', '\\.git$[[dir]]', '\\.idea$[[dir]]', '\\.sass-cache$' }
-vim.g.NERDTreeWinPos = "left"
+vim.g.NERDTreeWinPos = 'left'
 vim.g.NERDTreeWinSize = 60
 vim.g.NERDSpaceDelims = 1
 vim.g.NERDCompactSexyComs = 1
@@ -102,11 +110,11 @@ augroup END
 ]])
 
 -- Set color scheme
-vim.cmd("colorscheme deus")
+vim.cmd('colorscheme deus')
 
 -- Enable auto formatting
 vim.opt.viminfo = "'1000,h"
 
 -- Folding settings
-vim.opt.foldcolumn = "1"
+vim.opt.foldcolumn = '1'
 vim.opt.foldlevelstart = 99
