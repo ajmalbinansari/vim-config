@@ -51,16 +51,5 @@ vim.api.nvim_set_keymap(
 )
 
 -- Note: Main telescope keymaps (<leader>t, <leader>g, etc.) are defined in lua/plugins/telescope.lua
-
--- ============================================================================
--- Git Shortcuts (vim-fugitive)
--- ============================================================================
-
-vim.api.nvim_set_keymap('n', '<leader>vs', ':Git<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>vc', ':Git commit<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>vp', ':Git push<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>vl', ':Git pull<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>vb', ':Git blame<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>vd', ':Gdiffsplit<CR>', { noremap = true, silent = true })
-
--- Note: NERDTree and Claude Code keymaps are in their respective plugin files
+-- Note: Git keymaps (<leader>v, <leader>h) are defined in lua/plugins/git.lua
+-- Note: File explorer and Claude Code keymaps are in their respective plugin files

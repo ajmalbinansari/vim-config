@@ -19,12 +19,12 @@
 | | `;` | Buffers | | `,ac` | Code actions |
 | | `,j` | Find (word) | **Diagnostics** | `[d` | Previous diagnostic |
 | | `,k` | Grep (word) | | `]d` | Next diagnostic |
-| **Git** | `,vs` | Status | | `,dd` | Diagnostic list |
-| | `,vc` | Commit | **AI** | `<C-,>` | Claude Code |
-| | `,vp` | Push | | `Tab` | Copilot (insert) |
-| | `,vl` | Pull | **Comment** | `,c<space>` | Toggle comment |
-| | `,vb` | Blame |
-| | `,vd` | Diff split |
+| **Git** | `,vg` | LazyGit UI | | `,dd` | Diagnostic list |
+| | `,vd` | Diff view | **AI** | `<C-,>` | Claude Code |
+| | `,vh` | File history | | `Tab` | Copilot (insert) |
+| | `,hs` | Stage hunk | **Comment** | `,c<space>` | Toggle comment |
+| | `,hp` | Preview hunk |
+| | `]c` / `[c` | Next/Prev hunk |
 
 ---
 
@@ -38,6 +38,23 @@
 | `.` | Set root | `r` | Rename | `P` | Preview | `]g` | Next git change |
 | `R` | Refresh | `y` | Copy | `q` | Close | `</>` | Switch source |
 | `?` | Help | `p` | Paste | `z/Z` | Close/Expand all |
+
+---
+
+## Git Workflow (LazyGit + Gitsigns + Diffview)
+
+| Primary (`,v`) | | Hunks (`,h`) | | Navigation | |
+|----------------|---|--------------|---|------------|---|
+| `,vg` | LazyGit UI | `,hs` | Stage hunk | `]c` | Next hunk |
+| `,vs` | Git status | `,hr` | Reset hunk | `[c` | Prev hunk |
+| `,vf` | LazyGit (file) | `,hS` | Stage buffer | **Inside LazyGit** | |
+| `,vd` | Diff view | `,hR` | Reset buffer | `Space` | Stage/unstage |
+| `,vc` | Close diff | `,hu` | Undo stage | `c` | Commit |
+| `,vh` | File history | `,hp` | Preview hunk | `P` | Push |
+| `,vr` | Refresh | `,hb` | Blame line | `p` | Pull |
+| `,vb` | Toggle blame | `,hd` | Diff this | `?` | Help / `q` Quit |
+
+**Diff View:** `<Tab>`/`<S-Tab>` cycle files · `-` stage/unstage · `gf` goto file · `[x`/`]x` conflicts · `,co`/`,ct` choose ours/theirs
 
 ---
 
@@ -117,12 +134,12 @@ WORKFLOW                    NAVIGATION                 CODE EDITING
 ,t          Find files      K          Docs            ,ac      Actions
 ,g          Search code     gr         References      ,f       Format
 ,n          Toggle tree     [d / ]d    Diagnostics     ,c<sp>   Comment
-,vs → ,vc   Git status/commit
+,vg         LazyGit UI      ]c / [c    Next/Prev hunk  ,hs      Stage hunk
 
-TEXT OBJECTS                SELECTION                   SPLIT/SEARCH
-vaf         Select function gnn → grn  Smart select    <C-w>v   V-split
-dif         Delete fn body  grm        Shrink          /        Search
-vac         Select class    grc        Scope           *        Search word
+TEXT OBJECTS                SELECTION                   GIT HUNKS
+vaf         Select function gnn → grn  Smart select    ,hp      Preview hunk
+dif         Delete fn body  grm        Shrink          ,vd      Diff view
+vac         Select class    grc        Scope           ,vh      File history
 ```
 
 ---
