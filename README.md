@@ -66,7 +66,6 @@ Modern Neovim configuration optimized for TypeScript/JavaScript, PHP (Laravel/Sy
 - `diagflow.nvim` - Inline diagnostics
 
 ### AI
-- `copilot.vim` - GitHub Copilot
 - `claude-code.nvim` - Claude Code integration
 
 ## Configuration Structure
@@ -102,7 +101,7 @@ Modern Neovim configuration optimized for TypeScript/JavaScript, PHP (Laravel/Sy
         ├── which-key.lua       # Keybinding documentation
         ├── mini.lua            # mini.nvim plugins
         ├── diagnostics.lua     # diagflow, code-action-menu
-        └── ai.lua              # Copilot, Claude Code
+        └── ai.lua              # Claude Code
 ```
 
 ## Key Features

@@ -1,23 +1,7 @@
 -- AI Coding Assistants
--- GitHub Copilot and Claude Code
+-- Claude Code Integration
 
 return {
-  -- ============================================================================
-  -- GitHub Copilot
-  -- ============================================================================
-
-  {
-    "github/copilot.vim",
-    event = "InsertEnter",
-    init = function()
-      -- Use latest Node v22.x from nvm
-      local node_path = vim.fn.glob("~/.nvm/versions/node/v22*/bin/node")
-      if node_path ~= "" then
-        vim.g.copilot_node_command = vim.fn.expand(node_path)
-      end
-    end,
-  },
-
   -- ============================================================================
   -- Claude Code Integration
   -- ============================================================================
