@@ -109,17 +109,6 @@ return {
           enable = true,
         },
       }
-
-      -- Configure treesitter context
-      require('treesitter-context').setup {
-        enable = true,
-        max_lines = 3,
-        min_window_height = 0,
-        line_numbers = true,
-        multiline_threshold = 20,
-        trim_scope = 'outer',
-        mode = 'cursor',
-      }
     end,
   },
 
@@ -132,7 +121,16 @@ return {
   -- Tree-sitter context - shows current function/class at top
   {
     "nvim-treesitter/nvim-treesitter-context",
-    lazy = true,
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      enable = true,
+      max_lines = 3,
+      min_window_height = 0,
+      line_numbers = true,
+      multiline_threshold = 20,
+      trim_scope = 'outer',
+      mode = 'cursor',
+    },
   },
 
   -- Auto-close and rename HTML/JSX tags
