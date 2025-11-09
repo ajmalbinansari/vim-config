@@ -26,70 +26,89 @@ return {
     config = function()
       local dap = require("dap")
 
+      -- Helper function to get Mason package path safely
+      local function get_mason_path(package_name)
+        local ok, mason_registry = pcall(require, "mason-registry")
+        if not ok then
+          return nil
+        end
+
+        local pkg_ok, pkg = pcall(mason_registry.get_package, package_name)
+        if not pkg_ok then
+          return nil
+        end
+
+        return pkg:get_install_path()
+      end
+
       -- ============================================================================
       -- JavaScript/TypeScript Debug Adapter (vscode-js-debug)
       -- ============================================================================
 
-      dap.adapters["pwa-node"] = {
-        type = "server",
-        host = "localhost",
-        port = "${port}",
-        executable = {
-          command = "node",
-          args = {
-            require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-              .. "/js-debug/src/dapDebugServer.js",
-            "${port}",
+      local js_debug_path = get_mason_path("js-debug-adapter")
+      if js_debug_path then
+        dap.adapters["pwa-node"] = {
+          type = "server",
+          host = "localhost",
+          port = "${port}",
+          executable = {
+            command = "node",
+            args = {
+              js_debug_path .. "/js-debug/src/dapDebugServer.js",
+              "${port}",
+            },
           },
-        },
-      }
+        }
 
-      -- Node.js debugging configuration
-      dap.configurations.javascript = {
-        {
-          type = "pwa-node",
-          request = "launch",
-          name = "Launch file",
-          program = "${file}",
-          cwd = "${workspaceFolder}",
-        },
-        {
-          type = "pwa-node",
-          request = "attach",
-          name = "Attach",
-          processId = require("dap.utils").pick_process,
-          cwd = "${workspaceFolder}",
-        },
-      }
+        -- Node.js debugging configuration
+        dap.configurations.javascript = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach",
+            processId = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
+          },
+        }
 
-      dap.configurations.typescript = dap.configurations.javascript
-      dap.configurations.typescriptreact = dap.configurations.javascript
-      dap.configurations.javascriptreact = dap.configurations.javascript
+        dap.configurations.typescript = dap.configurations.javascript
+        dap.configurations.typescriptreact = dap.configurations.javascript
+        dap.configurations.javascriptreact = dap.configurations.javascript
+      end
 
       -- ============================================================================
       -- PHP Debug Adapter (vscode-php-debug)
       -- ============================================================================
 
-      dap.adapters.php = {
-        type = "executable",
-        command = "node",
-        args = {
-          require("mason-registry").get_package("php-debug-adapter"):get_install_path()
-            .. "/extension/out/phpDebug.js",
-        },
-      }
-
-      dap.configurations.php = {
-        {
-          type = "php",
-          request = "launch",
-          name = "Listen for Xdebug",
-          port = 9003,
-          pathMappings = {
-            ["/var/www/html"] = "${workspaceFolder}",
+      local php_debug_path = get_mason_path("php-debug-adapter")
+      if php_debug_path then
+        dap.adapters.php = {
+          type = "executable",
+          command = "node",
+          args = {
+            php_debug_path .. "/extension/out/phpDebug.js",
           },
-        },
-      }
+        }
+
+        dap.configurations.php = {
+          {
+            type = "php",
+            request = "launch",
+            name = "Listen for Xdebug",
+            port = 9003,
+            pathMappings = {
+              ["/var/www/html"] = "${workspaceFolder}",
+            },
+          },
+        }
+      end
 
       -- ============================================================================
       -- Keymaps
