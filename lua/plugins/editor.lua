@@ -103,11 +103,6 @@ return {
             node_decremental = "grm",  -- Shrink selection
           },
         },
-
-        -- Auto-close and rename HTML/JSX tags
-        autotag = {
-          enable = true,
-        },
       }
     end,
   },
@@ -136,7 +131,17 @@ return {
   -- Auto-close and rename HTML/JSX tags
   {
     "windwp/nvim-ts-autotag",
-    lazy = true,
+    event = { "BufReadPost", "BufNewFile" },
+    ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "xml" },
+    config = function()
+      require('nvim-ts-autotag').setup({
+        opts = {
+          enable_close = true,
+          enable_rename = true,
+          enable_close_on_slash = false,
+        },
+      })
+    end,
   },
 
   -- ============================================================================
