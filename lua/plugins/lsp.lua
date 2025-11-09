@@ -8,8 +8,7 @@ return {
 
   {
     "williamboman/mason.nvim",
-    lazy = false,
-    priority = 900,
+    cmd = "Mason",
     build = ":MasonUpdate",
     config = function()
       require("mason").setup()
@@ -22,8 +21,7 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
-    lazy = false,
-    priority = 850,
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
@@ -55,8 +53,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    lazy = false,
-    priority = 800,
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "b0o/schemastore.nvim" },
     config = function()
       -- Load LSP configuration
