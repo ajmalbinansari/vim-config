@@ -7,10 +7,11 @@ Neovim configuration for TypeScript/JavaScript, PHP (Laravel/Symfony), and web d
 ### Language Server Protocol
 - `mason.nvim` - LSP/DAP/linter package manager
 - `mason-lspconfig.nvim` - Bridge between Mason and lspconfig
+- `mason-tool-installer.nvim` - Auto-install formatters and linters
 - `nvim-lspconfig` - LSP client configurations
 - `schemastore.nvim` - 400+ JSON/YAML schemas
 
-**Servers:** lua_ls, ts_ls, intelephense, phpactor, jsonls, yamlls
+**Servers:** lua_ls, ts_ls, eslint, intelephense, phpactor, jsonls, yamlls
 
 ### Completion
 - `nvim-cmp` - Completion engine
@@ -24,6 +25,7 @@ Neovim configuration for TypeScript/JavaScript, PHP (Laravel/Symfony), and web d
 - `nvim-treesitter-textobjects` - Syntax-aware text objects
 - `nvim-treesitter-context` - Sticky function/class headers
 - `nvim-ts-autotag` - Auto-close HTML/JSX tags
+- `vim-matchup` - Enhanced bracket matching with Treesitter integration
 - `nvim-colorizer.lua` - Inline color preview
 - `mini.surround` - Surround operations (quotes, brackets)
 - `mini.comment` - Smart commenting
@@ -55,8 +57,11 @@ Neovim configuration for TypeScript/JavaScript, PHP (Laravel/Symfony), and web d
 - `neotest-phpunit` - PHPUnit adapter
 
 ### Formatting & Linting
-- `conform.nvim` - Formatter runner (prettierd, stylua, php-cs-fixer)
-- `nvim-lint` - Asynchronous linter (eslint, phpcs)
+- `conform.nvim` - Formatter runner (prettierd, prettier, stylua, php-cs-fixer)
+- `nvim-lint` - Asynchronous linter (eslint_d for JS/TS, phpcs for PHP)
+- ESLint LSP - Code actions and auto-fix (EslintFixAll command)
+
+**Architecture:** Prettier handles formatting, ESLint handles code quality. ESLint LSP provides auto-fix on save, nvim-lint provides real-time diagnostics via daemon (eslint_d).
 
 ### UI
 - `catppuccin` - Colorscheme
@@ -88,6 +93,7 @@ Neovim configuration for TypeScript/JavaScript, PHP (Laravel/Symfony), and web d
     └── plugins/
         ├── ui.lua              # Colorscheme, statusline, icons
         ├── editor.lua          # Treesitter, colorizer, comments
+        ├── treesitter.lua      # Treesitter parsers, vim-matchup
         ├── lsp.lua             # Mason, lspconfig, schemastore
         ├── completion.lua      # nvim-cmp, sources, snippets
         ├── telescope.lua       # Fuzzy finder
@@ -107,10 +113,12 @@ Neovim configuration for TypeScript/JavaScript, PHP (Laravel/Symfony), and web d
 ## Key Features
 
 - **Lazy Loading:** Event-based loading for optimal startup time
-- **LSP:** Single LspAttach pattern for all servers
+- **LSP:** Single LspAttach pattern for all servers (Neovim 0.11 native API)
 - **Schema Validation:** Automatic JSON/YAML schema detection
-- **Format on Save:** prettierd (10-20x faster than prettier)
-- **Inline Diagnostics:** Real-time error display
+- **Format on Save:** EslintFixAll → Prettier (prettierd for 10-20x speed)
+- **Real-time Linting:** eslint_d daemon for instant diagnostics
+- **Smart Indentation:** Treesitter-based with vim-matchup bracket highlighting
+- **Inline Diagnostics:** Real-time error display with virtual text
 - **Project Navigation:** Harpoon for quick file bookmarks
 - **Label Motion:** Flash for precise jumping
 - **Test Integration:** Run tests inline with neotest
