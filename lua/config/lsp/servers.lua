@@ -43,8 +43,11 @@ vim.lsp.config('lua_ls', {
 -- TypeScript/JavaScript Language Server
 -- ============================================================================
 
+-- Note: Formatting is disabled - Prettier handles formatting via conform.nvim
+-- ts_ls provides: type checking, intelligent refactoring, auto-imports
 vim.lsp.config('ts_ls', {
-  cmd = { "typescript-language-server", "--stdio" },
+  cmd = { 'typescript-language-server', '--stdio' },
+  capabilities = capabilities,
   filetypes = {
     "typescript",
     "typescriptreact",
@@ -54,8 +57,10 @@ vim.lsp.config('ts_ls', {
     "jsx"
   },
   root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
-  capabilities = capabilities,
 })
+
+-- Disable TS formatting via LspAttach (handled in init.lua for all servers)
+-- This is done centrally to avoid duplication
 
 -- ============================================================================
 -- Flow Type Checker
@@ -135,6 +140,41 @@ vim.lsp.config('yamlls', {
 })
 
 -- ============================================================================
+-- ESLint Language Server
+-- ============================================================================
+-- Provides: code actions, auto-fix (EslintFixAll), diagnostics
+-- Note: nvim-lint ALSO provides ESLint diagnostics via eslint_d (complementary)
+-- Formatting is disabled - Prettier handles formatting via conform.nvim
+-- EslintFixAll command comes from nvim-lspconfig's eslint.lua
+
+vim.lsp.config('eslint', {
+  cmd = { 'vscode-eslint-language-server', '--stdio' },
+  capabilities = capabilities,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+  },
+  root_markers = {
+    '.eslintrc',
+    '.eslintrc.js',
+    '.eslintrc.json',
+    '.eslintrc.cjs',
+    'eslint.config.js',
+    'package.json',
+  },
+  settings = {
+    format = false,
+    validate = 'on',
+    run = 'onType',
+    workingDirectory = { mode = 'auto' },
+  },
+})
+
+-- ESLint-specific on_attach logic is in init.lua LspAttach autocmd
+
+-- ============================================================================
 -- Enable All Servers
 -- ============================================================================
 
@@ -146,6 +186,7 @@ function M.setup()
   vim.lsp.enable('phpactor')
   vim.lsp.enable('jsonls')
   vim.lsp.enable('yamlls')
+  vim.lsp.enable('eslint')
 end
 
 return M

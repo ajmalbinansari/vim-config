@@ -28,12 +28,33 @@ return {
         ensure_installed = {
           "lua_ls",
           "ts_ls",
+          "eslint",
           "phpactor",
           "intelephense",
           "jsonls",
           "yamlls"
         },
         automatic_installation = true,
+      })
+    end,
+  },
+
+  -- ============================================================================
+  -- Mason Tool Installer
+  -- ============================================================================
+
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "prettierd",
+          "prettier",
+          "eslint_d",
+        },
+        auto_update = false,
+        run_on_start = true,
       })
     end,
   },

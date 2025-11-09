@@ -13,11 +13,13 @@ return {
       local lint = require("lint")
 
       -- Configure linters by filetype
+      -- Note: ESLint diagnostics come from BOTH nvim-lint (eslint_d) AND ESLint LSP
+      -- This is the recommended 2024-2025 approach: nvim-lint complements LSP
       lint.linters_by_ft = {
-        javascript = { "eslint" },
-        javascriptreact = { "eslint" },
-        typescript = { "eslint" },
-        typescriptreact = { "eslint" },
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
         php = { "phpcs" },
       }
 
@@ -27,15 +29,7 @@ return {
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = lint_augroup,
         callback = function()
-          -- Only lint if in a project with proper linter setup
-          -- This prevents errors in test files or files without node_modules
-          local has_eslint = vim.fn.executable("eslint") == 1
-            or vim.fn.filereadable(vim.fn.getcwd() .. "/node_modules/.bin/eslint") == 1
-          local has_phpcs = vim.fn.executable("phpcs") == 1
-
-          if has_eslint or has_phpcs then
-            lint.try_lint()
-          end
+          lint.try_lint()
         end,
       })
 
@@ -43,15 +37,8 @@ return {
       vim.api.nvim_create_autocmd({ "TextChanged" }, {
         group = lint_augroup,
         callback = function()
-          -- Debounce linting
           vim.defer_fn(function()
-            local has_eslint = vim.fn.executable("eslint") == 1
-              or vim.fn.filereadable(vim.fn.getcwd() .. "/node_modules/.bin/eslint") == 1
-            local has_phpcs = vim.fn.executable("phpcs") == 1
-
-            if has_eslint or has_phpcs then
-              lint.try_lint()
-            end
+            lint.try_lint()
           end, 500)
         end,
       })
