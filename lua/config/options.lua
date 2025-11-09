@@ -42,6 +42,28 @@ vim.g.NERDTrimTrailingWhitespace = 1 -- Trim whitespace when uncommenting
 vim.g.NERDToggleCheckAllLines = 1 -- Check all lines when toggling
 
 -- ============================================================================
+-- Performance Optimization
+-- ============================================================================
+
+-- Disable unused built-in plugins for faster startup
+vim.g.loaded_netrw = 1 -- Disable netrw (using Neo-tree)
+vim.g.loaded_netrwPlugin = 1 -- Disable netrw plugin
+vim.g.loaded_gzip = 1 -- Disable gzip
+vim.g.loaded_tar = 1 -- Disable tar
+vim.g.loaded_tarPlugin = 1 -- Disable tar plugin
+vim.g.loaded_zip = 1 -- Disable zip
+vim.g.loaded_zipPlugin = 1 -- Disable zip plugin
+vim.g.loaded_2html_plugin = 1 -- Disable 2html
+vim.g.loaded_vimball = 1 -- Disable vimball
+vim.g.loaded_vimballPlugin = 1 -- Disable vimball plugin
+vim.g.loaded_matchit = 1 -- Disable matchit (using Treesitter)
+vim.g.loaded_matchparen = 1 -- Disable matchparen (using Treesitter)
+vim.g.loaded_logiPat = 1 -- Disable LogiPat
+vim.g.loaded_rrhelper = 1 -- Disable rrhelper
+vim.g.loaded_getscript = 1 -- Disable getscript
+vim.g.loaded_getscriptPlugin = 1 -- Disable getscript plugin
+
+-- ============================================================================
 -- Colorscheme
 -- ============================================================================
 
