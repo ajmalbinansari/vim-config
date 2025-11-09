@@ -81,6 +81,7 @@ return {
         { "<leader>hu", desc = "Undo stage hunk" },
         { "<leader>hp", desc = "Preview hunk" },
         { "<leader>hb", desc = "Blame line" },
+        { "<leader>ha", desc = "Harpoon: Add file" },
         { "<leader>hm", desc = "Harpoon menu" },
 
         -- LSP operations
@@ -121,7 +122,6 @@ return {
         { "<leader>2", desc = "Harpoon file 2" },
         { "<leader>3", desc = "Harpoon file 3" },
         { "<leader>4", desc = "Harpoon file 4" },
-        { "<leader>a", desc = "Harpoon: Add file" },
 
         -- File navigation
         { "-", desc = "Open parent directory (Oil)" },
