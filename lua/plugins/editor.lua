@@ -12,6 +12,8 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
+      "windwp/nvim-ts-autotag",
     },
     config = function()
       require('nvim-treesitter.configs').setup {
@@ -20,10 +22,12 @@ return {
           "lua",
           "typescript",
           "javascript",
+          "tsx",
           "php",
           "html",
           "css",
           "json",
+          "yaml",
           "vim"
         },
 
@@ -107,6 +111,37 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = true,
+  },
+
+  -- Tree-sitter context - shows current function/class at top
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      enable = true,
+      max_lines = 3,
+      min_window_height = 0,
+      line_numbers = true,
+      multiline_threshold = 1,
+      trim_scope = 'outer',
+      mode = 'cursor',
+    },
+  },
+
+  -- Auto-close and rename HTML/JSX tags
+  {
+    "windwp/nvim-ts-autotag",
+    event = { "BufReadPost", "BufNewFile" },
+    ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "xml" },
+    config = function()
+      require('nvim-ts-autotag').setup({
+        opts = {
+          enable_close = true,
+          enable_rename = true,
+          enable_close_on_slash = false,
+        },
+      })
+    end,
   },
 
   -- ============================================================================

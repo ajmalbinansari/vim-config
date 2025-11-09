@@ -1,5 +1,5 @@
 -- Code Formatting
--- Conform.nvim with Prettier and StyLua
+-- Conform.nvim with Prettierd (faster) and StyLua
 
 return {
   -- ============================================================================
@@ -12,22 +12,38 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
-          javascript = { "prettier" },
-          javascriptreact = { "prettier" },
-          typescript = { "prettier" },
-          typescriptreact = { "prettier" },
-          css = { "prettier" },
-          html = { "prettier" },
-          json = { "prettier" },
-          jsonc = { "prettier" },
-          yaml = { "prettier" },
-          markdown = { "prettier" },
+          -- Use prettierd (daemon version, 10-20x faster)
+          javascript = { "prettierd", "prettier" },
+          javascriptreact = { "prettierd", "prettier" },
+          typescript = { "prettierd", "prettier" },
+          typescriptreact = { "prettierd", "prettier" },
+          css = { "prettierd", "prettier" },
+          html = { "prettierd", "prettier" },
+          json = { "prettierd", "prettier" },
+          jsonc = { "prettierd", "prettier" },
+          yaml = { "prettierd", "prettier" },
+          markdown = { "prettierd", "prettier" },
+          -- Lua formatting
           lua = { "stylua" },
+          -- PHP formatting
+          php = { "php_cs_fixer" },
         },
-        -- Format on save
+        -- Format on save with optimized timeout
         format_on_save = {
-          timeout_ms = 500,
+          timeout_ms = 1000,
           lsp_fallback = true,
+        },
+        -- Formatters configuration
+        formatters = {
+          php_cs_fixer = {
+            command = "php-cs-fixer",
+            args = {
+              "fix",
+              "$FILENAME",
+              "--rules=@PSR12",
+            },
+            stdin = false,
+          },
         },
       })
     end,

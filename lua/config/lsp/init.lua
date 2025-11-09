@@ -28,44 +28,14 @@ local function on_attach(client, bufnr)
 end
 
 -- ============================================================================
--- LspAttach Autocommands
+-- LspAttach Autocommand - Modern Pattern (2025)
 -- ============================================================================
 
--- Lua Language Server
+-- Single autocommand that fires when any LSP server attaches to a buffer
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.name == 'lua_ls' then
-      on_attach(client, args.buf)
-    end
-  end,
-})
-
--- TypeScript Language Server
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.name == 'ts_ls' then
-      on_attach(client, args.buf)
-    end
-  end,
-})
-
--- Flow Type Checker
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.name == 'flow' then
-      on_attach(client, args.buf)
-    end
-  end,
-})
-
--- PHP Language Server
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.name == 'phpactor' then
+    if client then
       on_attach(client, args.buf)
     end
   end,
