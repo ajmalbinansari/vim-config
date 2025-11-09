@@ -16,9 +16,20 @@ function M.setup(bufnr)
   buf_set_keymap('n', 'gd', '<Cmd>lua require("telescope.builtin").lsp_definitions()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'gr', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>', opts)
+  buf_set_keymap('n', '1gD', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 
   -- Documentation
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+
+  -- Code Actions
+  buf_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>ac', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+  -- Diagnostics
+  buf_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>dd', '<Cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 end
 
 return M

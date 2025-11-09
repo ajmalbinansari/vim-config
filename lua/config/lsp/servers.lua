@@ -69,7 +69,25 @@ vim.lsp.config('flow', {
 })
 
 -- ============================================================================
--- PHP Language Server (PHPActor)
+-- PHP Language Server (Intelephense - Primary)
+-- ============================================================================
+
+vim.lsp.config('intelephense', {
+  cmd = { 'intelephense', '--stdio' },
+  filetypes = { 'php' },
+  root_markers = { 'composer.json', '.git' },
+  capabilities = capabilities,
+  settings = {
+    intelephense = {
+      files = {
+        maxSize = 1000000,
+      },
+    },
+  },
+})
+
+-- ============================================================================
+-- PHP Language Server (PHPActor - Refactoring Support)
 -- ============================================================================
 
 vim.lsp.config('phpactor', {
@@ -80,6 +98,43 @@ vim.lsp.config('phpactor', {
 })
 
 -- ============================================================================
+-- JSON Language Server
+-- ============================================================================
+
+vim.lsp.config('jsonls', {
+  cmd = { 'vscode-json-language-server', '--stdio' },
+  filetypes = { 'json', 'jsonc' },
+  root_markers = { '.git' },
+  capabilities = capabilities,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
+
+-- ============================================================================
+-- YAML Language Server
+-- ============================================================================
+
+vim.lsp.config('yamlls', {
+  cmd = { 'yaml-language-server', '--stdio' },
+  filetypes = { 'yaml', 'yaml.docker-compose' },
+  root_markers = { '.git' },
+  capabilities = capabilities,
+  settings = {
+    yaml = {
+      schemaStore = {
+        enable = false,
+        url = "",
+      },
+      schemas = require('schemastore').yaml.schemas(),
+    },
+  },
+})
+
+-- ============================================================================
 -- Enable All Servers
 -- ============================================================================
 
@@ -87,7 +142,10 @@ function M.setup()
   vim.lsp.enable('lua_ls')
   vim.lsp.enable('ts_ls')
   vim.lsp.enable('flow')
+  vim.lsp.enable('intelephense')
   vim.lsp.enable('phpactor')
+  vim.lsp.enable('jsonls')
+  vim.lsp.enable('yamlls')
 end
 
 return M

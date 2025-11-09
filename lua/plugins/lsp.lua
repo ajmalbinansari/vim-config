@@ -27,10 +27,26 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "phpactor" },
+        ensure_installed = {
+          "lua_ls",
+          "ts_ls",
+          "phpactor",
+          "intelephense",
+          "jsonls",
+          "yamlls"
+        },
         automatic_installation = true,
       })
     end,
+  },
+
+  -- ============================================================================
+  -- SchemaStore - JSON/YAML Schema Support
+  -- ============================================================================
+
+  {
+    "b0o/schemastore.nvim",
+    lazy = true,
   },
 
   -- ============================================================================
@@ -41,6 +57,7 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     priority = 800,
+    dependencies = { "b0o/schemastore.nvim" },
     config = function()
       -- Load LSP configuration
       require('config.lsp')
