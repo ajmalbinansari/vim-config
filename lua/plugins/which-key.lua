@@ -70,6 +70,7 @@ return {
         { "<leader>vr", desc = "Refresh diff view" },
         { "<leader>vt", desc = "Toggle diff files panel" },
         { "<leader>vb", desc = "Toggle inline blame" },
+        { "<leader>gy", desc = "Copy git permalink" },
 
         -- Hunk operations (Gitsigns)
         { "<leader>h", group = "Git Hunks" },
@@ -121,6 +122,21 @@ return {
         { "<leader>3", desc = "Harpoon file 3" },
         { "<leader>4", desc = "Harpoon file 4" },
         { "<leader>a", desc = "Harpoon: Add file" },
+
+        -- File navigation
+        { "-", desc = "Open parent directory (Oil)" },
+
+        -- Surround operations (mini.surround)
+        { "sa", desc = "Add surrounding" },
+        { "sd", desc = "Delete surrounding" },
+        { "sr", desc = "Replace surrounding" },
+        { "sf", desc = "Find surrounding (right)" },
+        { "sF", desc = "Find surrounding (left)" },
+        { "sh", desc = "Highlight surrounding" },
+
+        -- Comment operations (mini.comment)
+        { "gc", desc = "Toggle comment" },
+        { "gcc", desc = "Toggle comment line" },
 
         -- Navigation
         { "gd", desc = "Go to definition" },
