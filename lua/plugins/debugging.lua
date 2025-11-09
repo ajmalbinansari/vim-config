@@ -33,11 +33,11 @@ return {
           return nil
         end
 
-        local pkg_ok, pkg = pcall(mason_registry.get_package, package_name)
-        if not pkg_ok then
+        if not mason_registry.is_installed(package_name) then
           return nil
         end
 
+        local pkg = mason_registry.get_package(package_name)
         return pkg:get_install_path()
       end
 
