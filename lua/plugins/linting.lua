@@ -27,7 +27,15 @@ return {
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = lint_augroup,
         callback = function()
-          lint.try_lint()
+          -- Only lint if in a project with proper linter setup
+          -- This prevents errors in test files or files without node_modules
+          local has_eslint = vim.fn.executable("eslint") == 1
+            or vim.fn.filereadable(vim.fn.getcwd() .. "/node_modules/.bin/eslint") == 1
+          local has_phpcs = vim.fn.executable("phpcs") == 1
+
+          if has_eslint or has_phpcs then
+            lint.try_lint()
+          end
         end,
       })
 
@@ -37,7 +45,13 @@ return {
         callback = function()
           -- Debounce linting
           vim.defer_fn(function()
-            lint.try_lint()
+            local has_eslint = vim.fn.executable("eslint") == 1
+              or vim.fn.filereadable(vim.fn.getcwd() .. "/node_modules/.bin/eslint") == 1
+            local has_phpcs = vim.fn.executable("phpcs") == 1
+
+            if has_eslint or has_phpcs then
+              lint.try_lint()
+            end
           end, 500)
         end,
       })
