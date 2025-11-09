@@ -119,7 +119,7 @@ Neovim configuration for TypeScript/JavaScript, PHP (Laravel/Symfony), and web d
 
 ## Requirements
 
-- Neovim >= 0.9.0
+- Neovim >= 0.11.0
 - Node.js >= 18 (for LSP servers, prettierd)
 - Git
 - ripgrep (for telescope grep)
