@@ -94,6 +94,17 @@ return {
         -- Commenting
         { "<leader>c", group = "Comment" },
 
+        -- Debugging
+        { "<leader>d", group = "Debug" },
+        { "<leader>db", desc = "Toggle breakpoint" },
+        { "<leader>dc", desc = "Continue" },
+        { "<leader>ds", desc = "Step over" },
+        { "<leader>di", desc = "Step into" },
+        { "<leader>do", desc = "Step out" },
+        { "<leader>dr", desc = "Open REPL" },
+        { "<leader>du", desc = "Toggle UI" },
+        { "<leader>dt", desc = "Terminate" },
+
         -- Numbers (Harpoon files)
         { "<leader>1", desc = "Harpoon file 1" },
         { "<leader>2", desc = "Harpoon file 2" },
