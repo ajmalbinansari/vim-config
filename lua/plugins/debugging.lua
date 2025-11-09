@@ -13,6 +13,7 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       "nvim-neotest/nvim-nio",
     },
+    cmd = { "DapToggleBreakpoint", "DapContinue", "DapStepOver", "DapStepInto", "DapStepOut" },
     keys = {
       { "<leader>db", desc = "Toggle breakpoint" },
       { "<leader>dc", desc = "Continue" },
@@ -141,6 +142,7 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    lazy = true,
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
@@ -208,6 +210,7 @@ return {
   {
     "theHamsta/nvim-dap-virtual-text",
     dependencies = { "mfussenegger/nvim-dap" },
+    lazy = true,
     config = function()
       require("nvim-dap-virtual-text").setup({
         enabled = true,
@@ -234,6 +237,7 @@ return {
   {
     "jay-babu/mason-nvim-dap.nvim",
     dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+    lazy = true,
     cmd = { "DapInstall", "DapUninstall" },
     config = function()
       require("mason-nvim-dap").setup({
