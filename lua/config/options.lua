@@ -8,6 +8,8 @@
 -- Line numbers
 vim.opt.number = true -- Show absolute line numbers
 vim.opt.relativenumber = true -- Show relative line numbers
+vim.opt.signcolumn = 'yes' -- Always show sign column (prevents text shifting)
+vim.opt.numberwidth = 4 -- Width of number column
 
 -- Colors
 vim.opt.termguicolors = true -- Enable true color support
@@ -28,6 +30,18 @@ vim.opt.smartcase = true -- Smart case handling
 -- ============================================================================
 
 vim.opt.viminfo = "'1000,h" -- Remember marks for 1000 files
+
+-- ============================================================================
+-- Indentation Options
+-- ============================================================================
+
+vim.opt.tabstop = 2 -- Number of spaces a tab counts for
+vim.opt.shiftwidth = 2 -- Number of spaces for each indent
+vim.opt.softtabstop = 2 -- Number of spaces a tab counts for while editing
+vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.autoindent = true -- Copy indent from current line when starting new line
+vim.opt.smartindent = true -- Smart autoindenting for C-like languages
+vim.opt.breakindent = true -- Wrapped lines continue with same indent
 
 -- ============================================================================
 -- NERDCommenter Configuration
