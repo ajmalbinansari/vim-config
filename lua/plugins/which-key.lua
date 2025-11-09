@@ -105,6 +105,16 @@ return {
         { "<leader>du", desc = "Toggle UI" },
         { "<leader>dt", desc = "Terminate" },
 
+        -- Testing
+        { "<leader>t", group = "Test" },
+        { "<leader>tt", desc = "Run nearest test" },
+        { "<leader>tf", desc = "Run file tests" },
+        { "<leader>ts", desc = "Toggle test summary" },
+        { "<leader>to", desc = "Toggle test output" },
+        { "<leader>tS", desc = "Stop tests" },
+        { "<leader>tw", desc = "Toggle watch mode" },
+        { "<leader>td", desc = "Debug nearest test" },
+
         -- Numbers (Harpoon files)
         { "<leader>1", desc = "Harpoon file 1" },
         { "<leader>2", desc = "Harpoon file 2" },
