@@ -1,6 +1,6 @@
 # Neovim Configuration
 
-Modern Neovim configuration optimized for TypeScript/JavaScript, PHP (Laravel/Symfony), and web development.
+Neovim configuration for TypeScript/JavaScript, PHP (Laravel/Symfony), and web development.
 
 ## Plugins
 
@@ -107,7 +107,7 @@ Modern Neovim configuration optimized for TypeScript/JavaScript, PHP (Laravel/Sy
 ## Key Features
 
 - **Lazy Loading:** Event-based loading for optimal startup time
-- **Modern LSP:** Single LspAttach pattern for all servers
+- **LSP:** Single LspAttach pattern for all servers
 - **Schema Validation:** Automatic JSON/YAML schema detection
 - **Format on Save:** prettierd (10-20x faster than prettier)
 - **Inline Diagnostics:** Real-time error display
@@ -125,12 +125,3 @@ Modern Neovim configuration optimized for TypeScript/JavaScript, PHP (Laravel/Sy
 - ripgrep (for telescope grep)
 - fd (for telescope file search)
 - lazygit (optional, for git UI)
-
-## Leader Key
-
-`,` (comma)
-
-## Branch Structure
-
-- `main` - Stable configuration
-- `productivity-plugins` - Latest updates (LSP enhancements, debugging, testing, productivity tools)
