@@ -44,7 +44,9 @@ return {
           winblend = 0,
           layout_strategy = 'horizontal',
           layout_config = {
-            preview_width = 0.65,
+            horizontal = {
+              preview_width = 0.65,
+            },
             width = 0.75,
             height = 0.75,
             prompt_position = 'bottom',
