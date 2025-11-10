@@ -53,3 +53,25 @@ vim.api.nvim_set_keymap(
 -- Note: Main telescope keymaps (<leader>t, <leader>g, etc.) are defined in lua/plugins/telescope.lua
 -- Note: Git keymaps (<leader>v, <leader>h) are defined in lua/plugins/git.lua
 -- Note: File explorer and Claude Code keymaps are in their respective plugin files
+
+-- ============================================================================
+-- Terminal Mode Navigation
+-- ============================================================================
+-- These keymaps work while typing in terminal (insert mode)
+
+-- Option 1: Use standard Neovim window navigation
+-- Navigate to editor window (left)
+vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h', { silent = true, desc = 'Terminal: Go to left window' })
+
+-- Navigate to terminal window (right)
+vim.keymap.set('t', '<C-l>', '<C-\\><C-n><C-w>l', { silent = true, desc = 'Terminal: Go to right window' })
+
+-- Navigate up/down (if you have horizontal splits)
+vim.keymap.set('t', '<C-j>', '<C-\\><C-n><C-w>j', { silent = true, desc = 'Terminal: Go to window below' })
+vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w>k', { silent = true, desc = 'Terminal: Go to window above' })
+
+-- Option 2: Use plugin's built-in focus command (alternative)
+-- vim.keymap.set('t', '<C-Space>', '<cmd>ClaudeCodeFocus<CR>', { silent = true, desc = 'Toggle Claude focus' })
+
+-- Quick exit terminal mode (without navigation)
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { silent = true, desc = 'Terminal: Exit to normal mode' })
